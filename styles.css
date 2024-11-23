@@ -8,3 +8,8 @@ h1 {
     cursor: pointer;
     color: red;
 }
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+}
