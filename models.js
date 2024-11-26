@@ -29,6 +29,21 @@ const flights = [
   ];
 
 
+const bookings = [
+{
+    bookingId: 'B1001',
+    flightNumber: 'OA101',
+    passengers: [
+    {
+        name: 'John Doe',
+        passportNumber: 'AB123456'
+    }
+    ],
+    totalPassengers: 1
+},
+];
+
+
   function updatePassengerFields() {
     const count = document.getElementById('passengerCount').value;
     const container = document.getElementById('passengerFields');
