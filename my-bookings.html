@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnoAir - My Bookings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1 onclick="location.href='index.html'">OnoAir</h1>
+    </header>
+
+    <div class="container">
+        <h2>My Bookings</h2>
+        <div id="bookings-container" class="bookings-container">
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="help-icon" onclick="location.href='help.html'">❓</div>
+    </footer>
+
+    <script src="models.js"></script>
+    <script>
+        window.onload = ()=>{
+            displayBookings();
+        }
+    </script>
+</body>
+</html>
