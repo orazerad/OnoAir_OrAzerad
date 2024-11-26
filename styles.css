@@ -46,6 +46,16 @@ body {
     margin: 1rem 0;
   }
 
+  th, td {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    background: #f4f4f4;
+  }
+
   
 .main-menu {
     display: flex;
