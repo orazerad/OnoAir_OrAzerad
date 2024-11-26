@@ -25,8 +25,8 @@ const flights = [
         arrivalDateTime: '2024-12-01T14:00:00',
         totalSeats: 180,
         availableSeats: 150
-      },
-  ];
+    },
+];
 
 
 const bookings = [
@@ -171,16 +171,43 @@ function bookFlight(flightNumber) {
     location.href = `booking-form.html?flight=${flightNumber}`;
 }
 
+function getFlightDetails(flightNumber) {
+    const flight = flights.find(f => f.flightNumber === flightNumber);
+    if (!flight) return null;
+
+    const departure = destinations.find(d => d.code === flight.departureCode);
+    const arrival = destinations.find(d => d.code === flight.arrivalCode);
+
+    return {
+        origin: departure?.name || flight.departureCode,
+        destination: arrival?.name || flight.arrivalCode,
+        boardingDate: new Date(flight.departureDateTime).toLocaleDateString(),
+        boardingTime: new Date(flight.departureDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        landingDate: new Date(flight.arrivalDateTime).toLocaleDateString(),
+        landingTime: new Date(flight.arrivalDateTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    };
+}
+
 function createBookingCard(booking) {
+    const flightDetails = getFlightDetails(booking.flightNumber);
+    if (!flightDetails) return ''; // Handle case where flight isn't found
+
     return `
         <div class="booking-card">
             <div class="destination-image">
                 Destination Image
             </div>
             <div class="booking-details">
-                <p>Origin: ${booking.origin} Boarding: ${booking.boardingDate} ${booking.boardingTime}</p>
-                <p>Destination: ${booking.destination} Landing: ${booking.landingDate} ${booking.landingTime}</p>
-                <p>No. of passengers: ${booking.passengers}</p>
+                <p>Flight Number: ${booking.flightNumber}</p>
+                <p>Origin: ${flightDetails.origin} Boarding: ${flightDetails.boardingDate} ${flightDetails.boardingTime}</p>
+                <p>Destination: ${flightDetails.destination} Landing: ${flightDetails.landingDate} ${flightDetails.landingTime}</p>
+                <p>No. of passengers: ${booking.totalPassengers}</p>
+                <p>Passengers:</p>
+                <ul>
+                    ${booking.passengers.map(p => `
+                        <li>${p.name} (Passport: ${p.passportNumber})</li>
+                    `).join('')}
+                </ul>
             </div>
         </div>
     `;
