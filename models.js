@@ -141,5 +141,25 @@ function filterFlights() {
 }
 
 
+function displayFlights(flightsList) {
+    const tbody = document.getElementById('flightsBody');
+    tbody.innerHTML = '';
+    
+    flightsList.forEach(flight => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${flight.flightNumber}</td>
+            <td>${flight.departureCode}</td>
+            <td>${flight.arrivalCode}</td>
+            <td>${new Date(flight.departureDateTime).toLocaleString()}</td>
+            <td>${new Date(flight.arrivalDateTime).toLocaleString()}</td>
+            <td>${flight.availableSeats}</td>
+            <td><button onclick="bookFlight('${flight.flightNumber}')">Book</button></td>
+        `;
+        tbody.appendChild(row);
+    });
+}
+
+
 
 displayDestinations();
