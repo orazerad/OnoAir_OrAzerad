@@ -16,10 +16,9 @@ body {
     text-align: center;
   }
 
-.header h1 {
+  .header h1 {
     cursor: pointer;
-    color: red;
-}
+  }
 
 .footer {
     background: #f4f4f4;
