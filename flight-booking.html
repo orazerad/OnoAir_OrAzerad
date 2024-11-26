@@ -6,6 +6,7 @@
     <title>OnoAir - Book Flight</title>
     <link rel="stylesheet" href="styles.css">
     <script src="models.js"></script>
+
 </head>
 <body>
     <header class="header">
@@ -15,7 +16,7 @@
     <div class="container">
         <h2>Book Flight</h2>
         <div id="flightDetails"></div>
-
+        
         <form id="bookingForm" onsubmit="return handleBookingSubmit(event)">
             <div class="form-group">
                 <label for="passengerCount">Number of Passengers:</label>
@@ -26,12 +27,50 @@
             
             <button type="submit">Book Flight</button>
         </form>
-
     </div>
 
-    <footer>
+    <footer class="footer">
         <div class="help-icon" onclick="location.href='help.html'">❓</div>
     </footer>
-    
+
+    <script>
+        function updatePassengerFields() {
+            const count = document.getElementById('passengerCount').value;
+            const container = document.getElementById('passengerFields');
+            container.innerHTML = '';
+            
+            for(let i = 0; i < count; i++) {
+                container.innerHTML += `
+                    <div class="passenger-group">
+                        <h4>Passenger ${i + 1}</h4>
+                        <div class="form-group">
+                            <label for="name${i}">Name:</label>
+                            <input type="text" id="name${i}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passport${i}">Passport Number:</label>
+                            <input type="text" id="passport${i}" required>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            const count = document.getElementById('passengerCount').value;
+            const passengers = [];
+            
+            for(let i = 0; i < count; i++) {
+                passengers.push({
+                    name: document.getElementById(`name${i}`).value,
+                    passport: document.getElementById(`passport${i}`).value
+                });
+            }
+            
+            alert('Booking would be created:\n' + JSON.stringify(passengers, null, 2));
+            return false;
+        }
+    </script>
 </body>
 </html>
