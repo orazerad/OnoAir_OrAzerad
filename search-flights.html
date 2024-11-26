@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnoAir - Search Flights</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"></style>
     <script src="models.js"></script>
 </head>
 <body>
     <header class="header">
         <h1 onclick="location.href='index.html'">OnoAir</h1>
-
     </header>
+
     <div class="container">
         <h2>Search Flights</h2>
         
@@ -30,6 +30,7 @@
                 </select>
             </div>
         </div>
+
         <table id="flightsTable">
             <thead>
                 <tr>
@@ -49,6 +50,55 @@
     <footer class="footer">
         <div class="help-icon" onclick="location.href='help.html'">❓</div>
     </footer>
-    
+
+    <script>
+        function populateDestinations() {
+            const fromSelect = document.getElementById('fromDestination');
+            const toSelect = document.getElementById('toDestination');
+            
+            destinations.forEach(dest => {
+                fromSelect.innerHTML += `<option value="${dest.code}">${dest.name}</option>`;
+                toSelect.innerHTML += `<option value="${dest.code}">${dest.name}</option>`;
+            });
+        }
+
+        function filterFlights() {
+            const from = document.getElementById('fromDestination').value;
+            const to = document.getElementById('toDestination').value;
+            
+            const filteredFlights = flights.filter(flight => 
+                (!from || flight.departureCode === from) &&
+                (!to || flight.arrivalCode === to)
+            );
+            
+            displayFlights(filteredFlights);
+        }
+
+        function displayFlights(flightsList) {
+            const tbody = document.getElementById('flightsBody');
+            tbody.innerHTML = '';
+            
+            flightsList.forEach(flight => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${flight.flightNumber}</td>
+                    <td>${flight.departureCode}</td>
+                    <td>${flight.arrivalCode}</td>
+                    <td>${new Date(flight.departureDateTime).toLocaleString()}</td>
+                    <td>${new Date(flight.arrivalDateTime).toLocaleString()}</td>
+                    <td>${flight.availableSeats}</td>
+                    <td><button onclick="bookFlight('${flight.flightNumber}')">Book</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function bookFlight(flightNumber) {
+            location.href = `booking-form.html?flight=${flightNumber}`;
+        }
+
+        populateDestinations();
+        filterFlights();
+    </script>
 </body>
 </html>
