@@ -75,3 +75,17 @@ function displayDestinations() {
         tbody.appendChild(row);
     });
 }
+
+function handleDestinationSubmit(event) {
+    event.preventDefault();
+    const formData = {
+        code: document.getElementById('code').value,
+        name: document.getElementById('name').value,
+        airportName: document.getElementById('airport').value,
+        airportWebsite: document.getElementById('website').value,
+        email: document.getElementById('email').value
+    };
+    alert('New destination would be added:\n' + JSON.stringify(formData, null, 2));
+    event.target.reset();
+    return false;
+}
