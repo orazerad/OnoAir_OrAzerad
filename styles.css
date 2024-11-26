@@ -67,6 +67,12 @@ body {
     margin-bottom: 0.5rem;
   }
 
+  input, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
   
 .main-menu {
     display: flex;
