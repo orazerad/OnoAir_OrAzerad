@@ -58,3 +58,20 @@ function handleBookingSubmit(event) {
     alert('Booking would be created:\n' + JSON.stringify(passengers, null, 2));
     return false;
 }
+
+
+function displayDestinations() {
+    const tbody = document.getElementById('destinationsBody');
+    tbody.innerHTML = '';
+    destinations.forEach(dest => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${dest.code}</td>
+            <td>${dest.name}</td>
+            <td>${dest.airportName}</td>
+            <td><a href="${dest.airportWebsite}" target="_blank">${dest.airportWebsite}</a></td>
+            <td>${dest.email}</td>
+        `;
+        tbody.appendChild(row);
+    });
+}
