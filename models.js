@@ -161,5 +161,10 @@ function displayFlights(flightsList) {
 }
 
 
+function bookFlight(flightNumber) {
+    location.href = `booking-form.html?flight=${flightNumber}`;
+}
+
+
 
 displayDestinations();
