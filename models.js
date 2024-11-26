@@ -128,6 +128,18 @@ function populateDestinations() {
     });
 }
 
+function filterFlights() {
+    const from = document.getElementById('fromDestination').value;
+    const to = document.getElementById('toDestination').value;
+    
+    const filteredFlights = flights.filter(flight => 
+        (!from || flight.departureCode === from) &&
+        (!to || flight.arrivalCode === to)
+    );
+    
+    displayFlights(filteredFlights);
+}
+
 
 
 displayDestinations();
