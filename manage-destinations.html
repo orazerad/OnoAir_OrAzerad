@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnoAir - Manage Destinations</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"></style>
     <script src="models.js"></script>
+
 </head>
 <body>
     <header class="header">
@@ -26,6 +27,7 @@
             </thead>
             <tbody id="destinationsBody"></tbody>
         </table>
+
         <h3>Add New Destination</h3>
         <form id="destinationForm" onsubmit="return handleDestinationSubmit(event)">
             <div class="form-group">
@@ -50,13 +52,44 @@
             </div>
             <button type="submit">Add Destination</button>
         </form>
-
     </div>
 
     <footer class="footer">
         <div class="help-icon" onclick="location.href='help.html'">❓</div>
-
     </footer>
-    
+
+    <script>
+        function displayDestinations() {
+            const tbody = document.getElementById('destinationsBody');
+            tbody.innerHTML = '';
+            destinations.forEach(dest => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${dest.code}</td>
+                    <td>${dest.name}</td>
+                    <td>${dest.airportName}</td>
+                    <td><a href="${dest.airportWebsite}" target="_blank">${dest.airportWebsite}</a></td>
+                    <td>${dest.email}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function handleDestinationSubmit(event) {
+            event.preventDefault();
+            const formData = {
+                code: document.getElementById('code').value,
+                name: document.getElementById('name').value,
+                airportName: document.getElementById('airport').value,
+                airportWebsite: document.getElementById('website').value,
+                email: document.getElementById('email').value
+            };
+            alert('New destination would be added:\n' + JSON.stringify(formData, null, 2));
+            event.target.reset();
+            return false;
+        }
+
+        displayDestinations();
+    </script>
 </body>
 </html>
