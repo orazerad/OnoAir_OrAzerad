@@ -13,12 +13,27 @@
 
     </header>
     <div class="container">
-
+        <h2>Search Flights</h2>
+        
+        <div class="search-filters">
+            <div class="form-group">
+                <label for="fromDestination">From:</label>
+                <select id="fromDestination" onchange="filterFlights()">
+                    <option value="">All</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="toDestination">To:</label>
+                <select id="toDestination" onchange="filterFlights()">
+                    <option value="">All</option>
+                </select>
+            </div>
+        </div>
     </div>
 
     <footer class="footer">
         <div class="help-icon" onclick="location.href='help.html'">❓</div>
-
     </footer>
     
 </body>
