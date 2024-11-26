@@ -62,18 +62,21 @@ function handleBookingSubmit(event) {
 
 function displayDestinations() {
     const tbody = document.getElementById('destinationsBody');
-    tbody.innerHTML = '';
-    destinations.forEach(dest => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${dest.code}</td>
-            <td>${dest.name}</td>
-            <td>${dest.airportName}</td>
-            <td><a href="${dest.airportWebsite}" target="_blank">${dest.airportWebsite}</a></td>
-            <td>${dest.email}</td>
-        `;
-        tbody.appendChild(row);
-    });
+    if (tbody) {
+        tbody.innerHTML = '';
+        destinations.forEach(dest => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${dest.code}</td>
+                <td>${dest.name}</td>
+                <td>${dest.airportName}</td>
+                <td><a href="${dest.airportWebsite}" target="_blank">${dest.airportWebsite}</a></td>
+                <td>${dest.email}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
 }
 
 function handleDestinationSubmit(event) {
