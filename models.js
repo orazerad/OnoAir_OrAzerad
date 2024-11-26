@@ -187,8 +187,19 @@ function createBookingCard(booking) {
 }
 
 
+function displayBookings() {
+    const container = document.getElementById('bookings-container');
+    if(container) {
+        const bookingsHTML = bookings.map(booking => createBookingCard(booking)).join('');
+        container.innerHTML = bookingsHTML;
+    }
+
+}
+
+
 
 displayDestinations();
 
 populateDestinations();
         filterFlights();
+        displayBookings();
