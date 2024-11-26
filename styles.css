@@ -40,6 +40,12 @@ body {
     padding: 0 1rem;
   }
 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+  }
+
   
 .main-menu {
     display: flex;
