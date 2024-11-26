@@ -41,3 +41,20 @@ const flights = [
         `;
     }
 }
+
+
+function handleBookingSubmit(event) {
+    event.preventDefault();
+    const count = document.getElementById('passengerCount').value;
+    const passengers = [];
+    
+    for(let i = 0; i < count; i++) {
+        passengers.push({
+            name: document.getElementById(`name${i}`).value,
+            passport: document.getElementById(`passport${i}`).value
+        });
+    }
+    
+    alert('Booking would be created:\n' + JSON.stringify(passengers, null, 2));
+    return false;
+}
