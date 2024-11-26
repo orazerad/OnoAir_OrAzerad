@@ -171,6 +171,21 @@ function bookFlight(flightNumber) {
     location.href = `booking-form.html?flight=${flightNumber}`;
 }
 
+function createBookingCard(booking) {
+    return `
+        <div class="booking-card">
+            <div class="destination-image">
+                Destination Image
+            </div>
+            <div class="booking-details">
+                <p>Origin: ${booking.origin} Boarding: ${booking.boardingDate} ${booking.boardingTime}</p>
+                <p>Destination: ${booking.destination} Landing: ${booking.landingDate} ${booking.landingTime}</p>
+                <p>No. of passengers: ${booking.passengers}</p>
+            </div>
+        </div>
+    `;
+}
+
 
 
 displayDestinations();
