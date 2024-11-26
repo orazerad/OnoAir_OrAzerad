@@ -168,3 +168,6 @@ function bookFlight(flightNumber) {
 
 
 displayDestinations();
+
+populateDestinations();
+        filterFlights();
