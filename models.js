@@ -118,4 +118,16 @@ function handleDestinationSubmit(event) {
 }
 
 
+function populateDestinations() {
+    const fromSelect = document.getElementById('fromDestination');
+    const toSelect = document.getElementById('toDestination');
+    
+    destinations.forEach(dest => {
+        fromSelect.innerHTML += `<option value="${dest.code}">${dest.name}</option>`;
+        toSelect.innerHTML += `<option value="${dest.code}">${dest.name}</option>`;
+    });
+}
+
+
+
 displayDestinations();
