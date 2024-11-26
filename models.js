@@ -89,3 +89,6 @@ function handleDestinationSubmit(event) {
     event.target.reset();
     return false;
 }
+
+
+displayDestinations();
