@@ -3,8 +3,13 @@
 const destinations = [
     {
         id: 1,
-        name: 'London'
-    },
+        name: 'London',
+        code: 'LHR',
+        airportName: 'Heathrow Airport',
+        airportWebsite: 'https://www.heathrow.com',
+        email: 'info@heathrow.com',
+        imageUrl: '/api/placeholder/400/300'
+      },
     {
         id: 2,
         name: 'Tel Aviv'
