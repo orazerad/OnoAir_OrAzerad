@@ -18,10 +18,14 @@ const destinations = [
 
 const flights = [
     {
-      flightNumber: 'OA101',
-      departureCode: 'TLV',
-      arrivalCode: 'LHR', 
-    },
+        flightNumber: 'OA101',
+        departureCode: 'TLV',
+        arrivalCode: 'LHR', 
+        departureDateTime: '2024-12-01T10:00:00',
+        arrivalDateTime: '2024-12-01T14:00:00',
+        totalSeats: 180,
+        availableSeats: 150
+      },
   ];
 
 
