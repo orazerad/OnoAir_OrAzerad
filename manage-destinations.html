@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OnoAir - Manage Destinations</title>
     <link rel="stylesheet" href="styles.css"></style>
+    <script src="classes/booking.js"></script>
+    <script src="classes/destination.js"></script>
+    <script src="classes/flight.js"></script>
+    <script src="classes/passenger.js"></script>
+    <script src="data/bookings.js"></script>
+    <script src="data/destinations.js"></script>
+    <script src="data/flights.js"></script>
     <script src="models.js"></script>
 
 </head>
@@ -59,21 +66,7 @@
     </footer>
 
     <script>
-        function displayDestinations() {
-            const tbody = document.getElementById('destinationsBody');
-            tbody.innerHTML = '';
-            destinations.forEach(dest => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${dest.code}</td>
-                    <td>${dest.name}</td>
-                    <td>${dest.airportName}</td>
-                    <td><a href="${dest.airportWebsite}" target="_blank">${dest.airportWebsite}</a></td>
-                    <td>${dest.email}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+        
 
         function handleDestinationSubmit(event) {
             event.preventDefault();
