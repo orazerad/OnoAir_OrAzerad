@@ -1,1 +1,72 @@
-<p>home works!</p>
+<div class="home-container">
+    <!-- Last Minute Flights Section -->
+    <section class="last-minute-section">
+      <h2>Last Minute Flights</h2>
+      <mat-card class="flights-card">
+        <mat-card-content>
+          <mat-table [dataSource]="lastMinuteFlights">
+            <!-- Flight Number Column -->
+            <ng-container matColumnDef="flightNumber">
+              <mat-header-cell *matHeaderCellDef>Flight No.</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.flightNumber}}</mat-cell>
+            </ng-container>
+  
+            <!-- Departure Column -->
+            <ng-container matColumnDef="departure">
+              <mat-header-cell *matHeaderCellDef>From</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.departureCode}}</mat-cell>
+            </ng-container>
+  
+            <!-- Arrival Column -->
+            <ng-container matColumnDef="arrival">
+              <mat-header-cell *matHeaderCellDef>To</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.arrivalCode}}</mat-cell>
+            </ng-container>
+  
+            <!-- Departure Time Column -->
+            <ng-container matColumnDef="departureTime">
+              <mat-header-cell *matHeaderCellDef>Departure</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.departureDateTime | date:'medium'}}</mat-cell>
+            </ng-container>
+  
+            <!-- Arrival Time Column -->
+            <ng-container matColumnDef="arrivalTime">
+              <mat-header-cell *matHeaderCellDef>Arrival</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.arrivalDateTime | date:'medium'}}</mat-cell>
+            </ng-container>
+  
+            <!-- Available Seats Column -->
+            <ng-container matColumnDef="seats">
+              <mat-header-cell *matHeaderCellDef>Available Seats</mat-header-cell>
+              <mat-cell *matCellDef="let flight">{{flight.availableSeats}}</mat-cell>
+            </ng-container>
+  
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <mat-header-cell *matHeaderCellDef></mat-header-cell>
+              <mat-cell *matCellDef="let flight">
+                <button mat-button color="primary" (click)="bookFlight(flight.flightNumber)">Book</button>
+              </mat-cell>
+            </ng-container>
+  
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  
+    <!-- All Flights Section -->
+    <section class="all-flights-section">
+      <h2>Search Flights</h2>
+      <mat-card class="flights-card">
+        <mat-card-content>
+          <!-- Search filters will be added here -->
+          <mat-table [dataSource]="allFlights">
+            <!-- Same columns as above -->
+            <!-- ... -->
+          </mat-table>
+        </mat-card-content>
+      </mat-card>
+    </section>
+  </div>
