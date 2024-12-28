@@ -1,0 +1,18 @@
+.menu-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .mat-nav-list {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .admin-menu, .user-menu {
+    padding: 0 20px;
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+  }
