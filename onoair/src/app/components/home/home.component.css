@@ -2,23 +2,27 @@
     padding: 20px;
   }
   
-  .flights-card {
+  .last-minute-section {
+    margin-bottom: 30px;
+  }
+  
+  mat-card {
     margin-bottom: 20px;
   }
   
-  mat-table {
+  table {
     width: 100%;
   }
   
-  h2 {
-    margin-bottom: 20px;
-    color: #333;
+  .mat-mdc-row:hover {
+    background-color: #f5f5f5;
   }
   
-  .last-minute-section, .all-flights-section {
-    margin-bottom: 40px;
+  .mat-mdc-cell {
+    padding: 8px 16px;
   }
   
-  mat-header-cell, mat-cell {
-    padding: 8px;
+  .mat-column-actions {
+    width: 100px;
+    text-align: center;
   }
