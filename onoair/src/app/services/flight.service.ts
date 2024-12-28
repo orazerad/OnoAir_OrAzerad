@@ -22,9 +22,8 @@ export class FlightService {
 
   getLastMinuteFlights(): Observable<Flight[]> {
     const today = new Date();
-    const nextWeek = new Date();
-    nextWeek.setDate(today.getDate() + 7);
-
+    const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
+    
     return of(this.flights.filter(flight => {
       const flightDate = new Date(flight.departureDateTime);
       return flightDate >= today && flightDate <= nextWeek;
