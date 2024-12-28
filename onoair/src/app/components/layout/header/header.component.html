@@ -1,1 +1,16 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+    <span (click)="navigateHome()" style="cursor: pointer">OnoAir</span>
+    <div class="menu-spacer"></div>
+    <mat-nav-list>
+      <div class="admin-menu">
+        <h3>Management</h3>
+        <a mat-list-item routerLink="/manage-destinations">Manage Destinations</a>
+        <a mat-list-item routerLink="/manage-flights">Manage Flights</a>
+      </div>
+      <div class="user-menu">
+        <h3>User Actions</h3>
+        <a mat-list-item routerLink="/search-flights">Search Flights</a>
+        <a mat-list-item routerLink="/my-bookings">My Bookings</a>
+      </div>
+    </mat-nav-list>
+  </mat-toolbar>
