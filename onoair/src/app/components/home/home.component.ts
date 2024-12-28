@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Flight } from '../../models/flight.model';
 import { FlightService } from '../../services/flight.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -12,24 +14,22 @@ export class HomeComponent implements OnInit {
   allFlights: Flight[] = [];
   displayedColumns: string[] = ['flightNumber', 'departure', 'arrival', 'departureTime', 'arrivalTime', 'seats', 'actions'];
 
-  constructor(private flightService: FlightService) {}
+  constructor(
+    private flightService: FlightService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.flightService.getAll().subscribe(flights => {
-      this.allFlights = flights;
-      // Filter last minute flights (this week)
-      const today = new Date();
-      const nextWeek = new Date();
-      nextWeek.setDate(today.getDate() + 7);
-      
-      this.lastMinuteFlights = flights.filter(flight => {
-        const flightDate = new Date(flight.departureDateTime);
-        return flightDate >= today && flightDate <= nextWeek;
-      });
+    this.loadLastMinuteFlights();
+  }
+
+  loadLastMinuteFlights() {
+    this.flightService.getLastMinuteFlights().subscribe(flights => {
+      this.lastMinuteFlights = flights;
     });
   }
 
   bookFlight(flightNumber: string) {
-    console.log('Booking flight:', flightNumber);
+    this.router.navigate(['/search-flights'], { queryParams: { flight: flightNumber } });
   }
 }
