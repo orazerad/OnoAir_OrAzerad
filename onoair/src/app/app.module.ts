@@ -29,6 +29,9 @@ import {MatButton} from '@angular/material/button';
 
 import { CommonModule } from '@angular/common';
 
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
@@ -46,7 +49,7 @@ import { CommonModule } from '@angular/common';
     BrowserModule,
     CommonModule,
     HeaderComponent,
-
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule,

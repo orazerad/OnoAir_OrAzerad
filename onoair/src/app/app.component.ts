@@ -14,7 +14,6 @@ import { Router, Event, NavigationError } from '@angular/router';
 export class AppComponent {
   title = 'onoair';
   constructor(private router: Router) {
-    // Subscribe to router events
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationError) {
         console.error('Navigation Error:', event.error, 'URL:', event.url);
