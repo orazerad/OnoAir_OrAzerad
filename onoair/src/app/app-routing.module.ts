@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+// import { RouterModule, Routes } from '@angular/router';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './components/home/home.component';
@@ -8,7 +9,7 @@ import { MyBookingsComponent } from './components/user/my-bookings/my-bookings.c
 import { SearchFlightsComponent } from './components/user/search-flights/search-flights.component';
 import { HelpComponent } from './components/help/help.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'manage-destinations', component: ManageDestinationsComponent },
   { path: 'manage-flights', component: ManageFlightsComponent },
