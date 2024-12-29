@@ -1,16 +1,21 @@
 <mat-toolbar color="primary">
     <span (click)="navigateHome()" style="cursor: pointer">OnoAir</span>
-    <div class="menu-spacer"></div>
-    <mat-nav-list>
-      <div class="admin-menu">
-        <h3>Management</h3>
-        <a mat-list-item routerLink="/manage-destinations">Manage Destinations</a>
-        <a mat-list-item routerLink="/manage-flights">Manage Flights</a>
+    <span class="spacer"></span>
+
+    <div class="nav-links">
+      <!-- Management Section -->
+      <div class="menu-section">
+        <span class="menu-label">Management</span>
+        <button mat-button routerLink="/manage-destinations">Manage Destinations</button>
+        <!-- <button mat-button (click)="navigateManageDestinations()">Manage Destinations</button> -->
+        <button mat-button routerLink="/manage-flights">Manage Flights</button>
       </div>
-      <div class="user-menu">
-        <h3>User Actions</h3>
-        <a mat-list-item routerLink="/search-flights">Search Flights</a>
-        <a mat-list-item routerLink="/my-bookings">My Bookings</a>
+
+      <!-- User Actions Section -->
+      <div class="menu-section">
+        <span class="menu-label">User Actions</span>
+        <button mat-button routerLink="/search-flights">Search Flights</button>
+        <button mat-button routerLink="/my-bookings">My Bookings</button>
       </div>
-    </mat-nav-list>
+    </div>
   </mat-toolbar>
