@@ -2,12 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { Flight } from '../../models/flight.model';
 import { FlightService } from '../../services/flight.service';
 import { Router } from '@angular/router';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {DatePipe} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  imports: [
+    MatCardModule,
+    MatTable,
+    MatHeaderCell,
+    MatCell,
+    MatColumnDef,
+    DatePipe,
+    MatHeaderCellDef,
+    MatCellDef,
+    MatButton,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef
+  ],
+  standalone: true
 })
 export class HomeComponent implements OnInit {
   lastMinuteFlights: Flight[] = [];
