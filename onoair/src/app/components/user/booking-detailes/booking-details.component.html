@@ -1,0 +1,74 @@
+<div class="booking-details-container" *ngIf="!isLoading">
+    <h1 class="page-title">פרטי הזמנה</h1>
+    <div class="booking-reference">
+        <p class="booking-id">מספר הזמנה: {{ booking?.id }}</p>
+    </div>
+
+    <mat-card class="flight-details-card">
+        <mat-card-header>
+            <mat-card-title>פרטי טיסה</mat-card-title>
+        </mat-card-header>
+    </mat-card>
+
+    <mat-card class="passengers-card">
+        <mat-card-header>
+            <mat-card-title>נוסעים ומטען</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="passengers-list">
+                <mat-expansion-panel *ngFor="let passenger of 'passengers' in booking ? booking.passengers : booking">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{ passenger.name }} {{ passenger.lastName }}
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            {{ getTotalLuggageItems(passenger) }} פריטי מטען
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+
+                    <div class="passenger-details">
+                        <div class="personal-info">
+                            <p><strong>מספר דרכון:</strong> {{ passenger.passport }}</p>
+                            <p *ngIf="passenger.email"><strong>אימייל:</strong> {{ passenger.email }}</p>
+                            <p *ngIf="passenger.phone"><strong>טלפון:</strong> {{ passenger.phone }}</p>
+                        </div>
+
+                        <div class="luggage-details">
+                            <h4>פרטי מטען</h4>
+
+                            <div class="luggage-summary" *ngIf="passenger.luggage && passenger.luggage.items?.length">
+                                <div *ngFor="let item of passenger.luggage.items" class="luggage-item">
+                                    <p><strong>{{ getLuggageTypeName(item.type) }}:</strong> {{ item.quantity }} פריטים</p>
+                                </div>
+                                <p class="luggage-cost"><strong>עלות מטען:</strong> {{ getLuggageCost(passenger) | currency:'ILS':'symbol':'1.0-0' }}</p>
+                            </div>
+
+                            <div *ngIf="!passenger.luggage || !passenger.luggage.items?.length" class="no-luggage">
+                                <p>לא נבחר מטען לנוסע זה</p>
+                            </div>
+
+                            <button mat-raised-button color="primary" (click)="editPassengerLuggage(passenger)">
+                                <mat-icon>edit</mat-icon>
+                                {{ passenger.luggage?.items?.length ? 'עדכון מטען' : 'הוספת מטען' }}
+                            </button>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+
+
+    <div class="actions">
+        <button mat-raised-button color="primary" [routerLink]="['/user/bookings']">
+            <mat-icon>arrow_back</mat-icon>
+            חזרה להזמנות
+        </button>
+    </div>
+</div>
+
+<div class="loading-container" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+    <p>טוען פרטי הזמנה...</p>
+</div>
