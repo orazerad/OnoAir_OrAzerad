@@ -1,0 +1,207 @@
+<div class="booking-container">
+    <h1 class="page-title">{{ isEditing ? 'עדכון הזמנת טיסה' : 'הזמנת טיסה חדשה' }}</h1>
+    
+    <mat-stepper #stepper [linear]="true" dir="rtl">
+      <!-- Flight details step -->
+      <mat-step [stepControl]="flightDetailsForm">
+        <ng-template matStepLabel>פרטי טיסה</ng-template>
+        <form [formGroup]="flightDetailsForm">
+          <!-- Your existing flight details form -->
+          <div class="flight-details-section">
+            <!-- Add your flight details form fields here -->
+            <!-- This is just a placeholder, use your actual flight details form -->
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>מקור</mat-label>
+                <input matInput formControlName="origin" required>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>יעד</mat-label>
+                <input matInput formControlName="destination" required>
+              </mat-form-field>
+            </div>
+            
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>תאריך טיסה</mat-label>
+                <input matInput [matDatepicker]="departurePicker" formControlName="departureDate" required>
+                <mat-datepicker-toggle matSuffix [for]="departurePicker"></mat-datepicker-toggle>
+                <mat-datepicker #departurePicker></mat-datepicker>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>מספר נוסעים</mat-label>
+                <input matInput type="number" formControlName="passengerCount" min="1" max="5" required>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button mat-raised-button color="primary" matStepperNext [disabled]="!flightDetailsForm.valid">המשך</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Passenger details step -->
+      <mat-step [stepControl]="passengerDetailsForm">
+        <ng-template matStepLabel>פרטי נוסעים</ng-template>
+        <form [formGroup]="passengerDetailsForm">
+          <!-- Your existing passenger details form -->
+          <div class="passengers-section">
+            <!-- This is a placeholder. Add your actual passenger form components here -->
+            <div *ngFor="let passenger of passengers; let i = index" class="passenger-form">
+              <h3>נוסע {{ i + 1 }}</h3>
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>שם פרטי</mat-label>
+                  <input matInput [formControlName]="'firstName' + i" required>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>שם משפחה</mat-label>
+                  <input matInput [formControlName]="'lastName' + i" required>
+                </mat-form-field>
+              </div>
+              
+              <div class="form-row">
+                <mat-form-field appearance="outline">
+                  <mat-label>מספר דרכון</mat-label>
+                  <input matInput [formControlName]="'passport' + i" required>
+                </mat-form-field>
+                
+                <mat-form-field appearance="outline">
+                  <mat-label>אימייל</mat-label>
+                  <input matInput type="email" [formControlName]="'email' + i">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button mat-button matStepperPrevious>חזור</button>
+            <button mat-raised-button color="primary" matStepperNext 
+                    [disabled]="!passengerDetailsForm.valid" 
+                    (click)="onPassengersComplete(passengers)">המשך</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Luggage step - NEW! -->
+      <mat-step [stepControl]="luggageForm">
+        <ng-template matStepLabel>בחירת מטען</ng-template>
+        <form [formGroup]="luggageForm">
+          <app-passenger-luggage [passengers]="passengers" [readOnly]="false"></app-passenger-luggage>
+          
+          <div class="confirmation-checkbox">
+            <mat-checkbox formControlName="luggageConfirmed">אני מאשר/ת את בחירת המטען</mat-checkbox>
+          </div>
+          
+          <div class="step-actions">
+            <button mat-button matStepperPrevious>חזור</button>
+            <button mat-raised-button color="primary" matStepperNext 
+                    [disabled]="!luggageForm.valid" 
+                    (click)="onLuggageComplete()">המשך</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <!-- Payment step -->
+      <mat-step [stepControl]="paymentForm">
+        <ng-template matStepLabel>תשלום</ng-template>
+        <form [formGroup]="paymentForm">
+          <!-- Payment summary section -->
+          <div class="payment-summary">
+            <h3>סיכום הזמנה</h3>
+            
+            <!-- Flight details summary -->
+            <mat-card class="summary-card">
+              <mat-card-header>
+                <mat-card-title>פרטי טיסה</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <!-- Display flight details summary -->
+                <p><strong>מקור:</strong> {{ flightDetailsForm.get('origin').value }}</p>
+                <p><strong>יעד:</strong> {{ flightDetailsForm.get('destination').value }}</p>
+                <p><strong>תאריך:</strong> {{ flightDetailsForm.get('departureDate').value | date }}</p>
+              </mat-card-content>
+            </mat-card>
+            
+            <!-- Passengers summary -->
+            <mat-card class="summary-card">
+              <mat-card-header>
+                <mat-card-title>נוסעים</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <div *ngFor="let passenger of passengers; let i = index" class="passenger-summary">
+                  <p><strong>נוסע {{ i + 1 }}:</strong> {{ passenger.name }} {{ passenger.lastName }}</p>
+                  
+                  <!-- Luggage summary -->
+                  <div class="luggage-summary" *ngIf="passenger.luggage && passenger.luggage.items?.length">
+                    <p><strong>מטען:</strong></p>
+                    <ul>
+                      <li *ngFor="let item of passenger.luggage.items">
+                        {{ getLuggageTypeName(item.type) }} - {{ item.quantity }} פריטים
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+            
+            <!-- Price summary -->
+            <mat-card class="summary-card">
+              <mat-card-header>
+                <mat-card-title>סיכום מחיר</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p><strong>מחיר טיסה בסיסי:</strong> {{ getBaseFlightPrice() | currency:'ILS':'symbol':'1.0-0' }}</p>
+                <p><strong>תוספת מטען:</strong> {{ getLuggageCost() | currency:'ILS':'symbol':'1.0-0' }}</p>
+                <p class="total-price"><strong>סה"כ לתשלום:</strong> {{ getTotalPrice() | currency:'ILS':'symbol':'1.0-0' }}</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+          
+          <!-- Payment form -->
+          <div class="payment-form">
+            <h3>פרטי תשלום</h3>
+            
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>מספר כרטיס אשראי</mat-label>
+                <input matInput formControlName="cardNumber" required>
+              </mat-form-field>
+            </div>
+            
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>תוקף</mat-label>
+                <input matInput formControlName="expiryDate" placeholder="MM/YY" required>
+              </mat-form-field>
+              
+              <mat-form-field appearance="outline">
+                <mat-label>CVV</mat-label>
+                <input matInput type="password" formControlName="cvv" required>
+              </mat-form-field>
+            </div>
+            
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>שם בעל הכרטיס</mat-label>
+                <input matInput formControlName="cardholderName" required>
+              </mat-form-field>
+            </div>
+          </div>
+          
+          <div class="step-actions">
+            <button mat-button matStepperPrevious>חזור</button>
+            <button mat-raised-button color="primary" 
+                    [disabled]="!paymentForm.valid || isSubmitting" 
+                    (click)="onSubmit()">
+              {{ isEditing ? 'עדכן הזמנה' : 'סיים הזמנה' }}
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-stepper>
+  </div>
