@@ -6,7 +6,8 @@ import { LuggageItem, LUGGAGE_TYPES } from '../../../models/luggage.model';
 @Component({
   selector: 'app-luggage-dialog',
   templateUrl: './luggage-dialog.component.html',
-  styleUrls: ['./luggage-dialog.component.css']
+  styleUrls: ['./luggage-dialog.component.css'],
+  standalone: true,
 })
 export class LuggageDialogComponent implements OnInit {
   luggageForm: FormGroup;
