@@ -3,46 +3,46 @@
     flex-direction: column;
     width: 100%;
     max-width: 600px;
-  }
-  
-  .luggage-items {
+}
+
+.luggage-items {
     display: flex;
     flex-direction: column;
     gap: 16px;
-  }
-  
-  .luggage-card {
+}
+
+.luggage-card {
     margin-bottom: 16px;
-  }
-  
-  .luggage-description {
+}
+
+.luggage-description {
     margin: 8px 0;
     color: rgba(0, 0, 0, 0.6);
-  }
-  
-  .luggage-weight {
+}
+
+.luggage-weight {
     margin: 8px 0;
     font-weight: bold;
-  }
-  
-  mat-form-field {
+}
+
+mat-form-field {
     width: 100%;
     margin-top: 16px;
-  }
-  
-  .error-message {
+}
+
+.error-message {
     background-color: #f8d7da;
     color: #721c24;
     padding: 10px;
     border-radius: 4px;
     margin-bottom: 16px;
-  }
-  
-  /* RTL support */
-  :host {
+}
+
+/* RTL support */
+:host {
     direction: rtl;
-  }
-  
-  h2 {
+}
+
+h2 {
     text-align: right;
-  }
+}
