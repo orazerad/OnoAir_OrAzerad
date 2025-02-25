@@ -1,3 +1,6 @@
+import { PassengerLuggage } from './luggage.model';
+
+
 export interface Booking {
     bookingId: string;
     flightNumber: string;
@@ -8,4 +11,5 @@ export interface Booking {
 export interface Passenger {
     name: string;
     passportNumber: string;
+    luggage?: PassengerLuggage;
 }
