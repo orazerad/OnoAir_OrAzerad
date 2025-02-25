@@ -1,0 +1,191 @@
+.bookings-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+    direction: rtl;
+}
+
+.page-title {
+    text-align: center;
+    margin-bottom: 24px;
+    color: #1976d2;
+}
+
+/* Loading container */
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+}
+
+.loading-container p {
+    margin-top: 16px;
+}
+
+/* Empty state */
+.no-bookings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+    padding: 48px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.no-bookings p {
+    margin-bottom: 24px;
+    font-size: 1.2em;
+    color: #757575;
+}
+
+/* Bookings list */
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.booking-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.booking-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Booking card header */
+mat-card-header {
+    position: relative;
+}
+
+.booking-status {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    font-weight: bold;
+}
+
+.booking-status.confirmed {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.booking-status.pending {
+    background-color: #fff9c4;
+    color: #f9a825;
+}
+
+.booking-status.cancelled {
+    background-color: #ffcdd2;
+    color: #c62828;
+}
+
+/* Flight details */
+.flight-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px 0;
+    background-color: #f5f5f5;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.flight-route {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.origin, .destination {
+    font-weight: bold;
+}
+
+.flight-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Booking summary */
+.booking-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.summary-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.summary-item mat-icon {
+    color: #1976d2;
+}
+
+/* Luggage tooltip */
+.luggage-tooltip {
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.luggage-tooltip::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+}
+
+.summary-item:hover .luggage-tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Add booking button */
+.add-booking {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .flight-details {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .booking-summary {
+        flex-direction: column;
+        gap: 12px;
+    }
+}

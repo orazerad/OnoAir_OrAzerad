@@ -1,0 +1,74 @@
+<div class="bookings-container">
+    <h1 class="page-title">ההזמנות שלי</h1>
+
+    <div class="loading-container" *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+        <p>טוען הזמנות...</p>
+    </div>
+
+    <div class="no-bookings" *ngIf="!isLoading && (!bookings || bookings.length === 0)">
+        <p>אין לך הזמנות כרגע.</p>
+        <button mat-raised-button color="primary" routerLink="/user/flights">הזמן טיסה</button>
+    </div>
+
+    <div class="bookings-list" *ngIf="!isLoading && bookings && bookings.length > 0">
+        <mat-card *ngFor="let booking of bookings" class="booking-card" (click)="viewBookingDetails(booking.id)">
+            <mat-card-header>
+                <mat-card-title>הזמנה #{{ booking.id }}</mat-card-title>
+                <mat-card-subtitle>{{ booking.bookingDate | date }}</mat-card-subtitle>
+                <div class="booking-status" [ngClass]="booking.status">{{ booking.status }}</div>
+            </mat-card-header>
+
+            <mat-card-content>
+                <div class="flight-details" *ngIf="booking.flightDetails">
+                    <div class="flight-route">
+                        <span class="origin">{{ booking.flightDetails.origin }}</span>
+                        <mat-icon>arrow_forward</mat-icon>
+                        <span class="destination">{{ booking.flightDetails.destination }}</span>
+                    </div>
+                    <div class="flight-date">
+                        <mat-icon>event</mat-icon>
+                        <span>{{ booking.flightDetails.departureDate | date }}</span>
+                    </div>
+                </div>
+
+                <div class="booking-summary">
+                    <div class="summary-item">
+                        <mat-icon>people</mat-icon>
+                        <span>{{ getTotalPassengers(booking) }} נוסעים</span>
+                    </div>
+
+                    <div class="summary-item">
+                        <mat-icon>luggage</mat-icon>
+                        <span>{{ getTotalLuggageItems(booking) }} פריטי מטען</span>
+                        <div class="luggage-tooltip">
+                            {{ getLuggageSummary(booking) }}
+                        </div>
+                    </div>
+
+                    <div class="summary-item">
+                        <mat-icon>paid</mat-icon>
+                        <span>{{ booking.totalPrice | currency:'ILS':'symbol':'1.0-0' }}</span>
+                    </div>
+                </div>
+            </mat-card-content>
+
+            <mat-card-actions>
+                <button mat-button (click)="viewBookingDetails(booking.id); $event.stopPropagation()">
+                    <mat-icon>visibility</mat-icon>
+                    פרטים
+                </button>
+                <button mat-button (click)="editBooking(booking.id); $event.stopPropagation()">
+                    <mat-icon>edit</mat-icon>
+                    עריכה
+                </button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+
+    <div class="add-booking" *ngIf="!isLoading">
+        <button mat-fab color="primary" routerLink="/user/flights">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
