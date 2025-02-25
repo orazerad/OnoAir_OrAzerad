@@ -30,19 +30,17 @@ import {MatButton} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
+import {PassengerLuggageComponent} from "./components/user/passenger-luggage/passenger-luggage.component";
+import {LuggageDialogComponent} from "./components/user/luggage-dialog/luggage-dialog.component";
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    ManageDestinationsComponent,
-    ManageFlightsComponent,
-    MyBookingsComponent,
-    SearchFlightsComponent,
     HelpComponent,
     FooterComponent,
+
 
   ],
   imports: [
@@ -64,7 +62,14 @@ import { FormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatToolbarModule,
     MatListModule,
-    MatButton
+    MatButton,
+    HomeComponent,
+    ManageDestinationsComponent,
+    ManageFlightsComponent,
+    MyBookingsComponent,
+    SearchFlightsComponent,
+    LuggageDialogComponent,
+    PassengerLuggageComponent
   ],
   exports: [
     MatCardModule
