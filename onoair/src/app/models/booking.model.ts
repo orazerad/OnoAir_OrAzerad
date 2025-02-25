@@ -9,6 +9,8 @@ export interface Booking {
 }
 
 export interface Passenger {
+    id: number;
+    lastName: string;
     name: string;
     passportNumber: string;
     luggage?: PassengerLuggage;
