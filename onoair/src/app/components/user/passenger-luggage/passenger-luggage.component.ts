@@ -8,7 +8,9 @@ import { LuggageService } from '../../../services/luggage.service';
 @Component({
   selector: 'app-passenger-luggage',
   templateUrl: './passenger-luggage.component.html',
-  styleUrls: ['./passenger-luggage.component.css']
+  styleUrls: ['./passenger-luggage.component.css'],
+  standalone: true,
+
 })
 export class PassengerLuggageComponent implements OnInit {
   @Input() passengers: Passenger[] = [];
