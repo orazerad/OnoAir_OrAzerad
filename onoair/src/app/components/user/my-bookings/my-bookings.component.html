@@ -1,70 +1,108 @@
 <div class="bookings-container">
-    <!-- Upcoming Bookings -->
-    <mat-card class="bookings-section">
-      <mat-card-header>
-        <mat-card-title>Upcoming Bookings</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="booking-list">
-          <div *ngFor="let booking of upcomingBookings" class="booking-card">
-            <div class="destination-image">
-              Destination Image
-            </div>
-            <div class="booking-details">
-              <h3>Flight {{booking.flightNumber}}</h3>
-              <p>Number of Passengers: {{booking.totalPassengers}}</p>
-              <div class="passenger-list">
-                <h4>Passengers:</h4>
-                <ul>
-                  <li *ngFor="let passenger of booking.passengers">
-                    {{passenger.name}} ({{passenger.passportNumber}})
-                  </li>
-                </ul>
-              </div>
-              <button mat-button color="primary" (click)="viewFlightDetails(booking.flightNumber)">
-                View Flight Details
-              </button>
-            </div>
-          </div>
-          <div *ngIf="upcomingBookings.length === 0" class="no-bookings">
-            No upcoming bookings found.
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  
-    <!-- Past Bookings -->
-    <mat-card class="bookings-section">
-      <mat-card-header>
-        <mat-card-title>Past Bookings</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <div class="booking-list">
-          <div *ngFor="let booking of pastBookings" class="booking-card">
-            <div class="destination-image">
-              Destination Image
-            </div>
-            <div class="booking-details">
-              <h3>Flight {{booking.flightNumber}}</h3>
-              <p>Number of Passengers: {{booking.totalPassengers}}</p>
-              <div class="passenger-list">
-                <h4>Passengers:</h4>
-                <ul>
-                  <li *ngFor="let passenger of booking.passengers">
-                    {{passenger.name}} ({{passenger.passportNumber}})
-                  </li>
-                </ul>
-              </div>
-              <button mat-button (click)="viewFlightDetails(booking.flightNumber)">
-                View Flight Details
-              </button>
-            </div>
-          </div>
-          <div *ngIf="pastBookings.length === 0" class="no-bookings">
-            No past bookings found.
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
+  <h2>Upcoming Bookings</h2>
+  <div *ngIf="upcomingBookings.length === 0" class="no-bookings">
+      No upcoming bookings found.
   </div>
-  
+
+  <div *ngFor="let booking of upcomingBookings" class="booking-card">
+
+
+      <div class="booking-details">
+          <h3>Flight {{booking.flightNumber}}</h3>
+          <p>Number of Passengers: {{booking.totalPassengers}}</p>
+
+          <div class="passengers">
+              <h4>Passengers:</h4>
+              <ul>
+                  <li *ngFor="let passenger of booking.passengers">
+                      {{passenger.name}} ({{passenger.passportNumber}})
+
+                      <!-- Luggage information -->
+                      <div class="luggage-info">
+            <span *ngIf="passenger.luggage && passenger.luggage.items && passenger.luggage.items.length > 0"
+                  class="luggage-badge"
+                  [title]="getLuggageSummary(passenger)">
+              <mat-icon>luggage</mat-icon> {{getTotalLuggageItems(passenger)}}
+            </span>
+                          <span *ngIf="!passenger.luggage || !passenger.luggage.items || passenger.luggage.items.length === 0"
+                                class="no-luggage-badge">
+              <mat-icon>luggage_off</mat-icon> No luggage
+            </span>
+
+                          <button mat-icon-button color="primary"
+                                  (click)="editPassengerLuggage(booking.bookingId, passenger); $event.stopPropagation()"
+                                  title="Manage luggage">
+                              <mat-icon>edit</mat-icon>
+                          </button>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Add luggage summary section -->
+          <div class="luggage-summary" *ngIf="getTotalBookingLuggageItems(booking) > 0">
+              <h4>Luggage Summary:</h4>
+              <p>Total Items: {{getTotalBookingLuggageItems(booking)}}</p>
+              <p>Luggage Cost: {{getLuggageCost(booking) | currency:'ILS':'symbol':'1.0-0'}}</p>
+          </div>
+
+          <div class="booking-actions">
+              <a mat-button color="primary" [routerLink]="['/user/booking', booking.bookingId]">
+                  View Flight Details
+              </a>
+              <button mat-raised-button color="accent" (click)="manageLuggage(booking)">
+                  <mat-icon>luggage</mat-icon> Manage All Luggage
+              </button>
+          </div>
+      </div>
+  </div>
+
+  <h2>Past Bookings</h2>
+  <div *ngIf="pastBookings.length === 0" class="no-bookings">
+      No past bookings found.
+  </div>
+
+  <div *ngFor="let booking of pastBookings" class="booking-card">
+
+
+      <div class="booking-details">
+          <h3>Flight {{booking.flightNumber}}</h3>
+          <p>Number of Passengers: {{booking.totalPassengers}}</p>
+
+          <div class="passengers">
+              <h4>Passengers:</h4>
+              <ul>
+                  <li *ngFor="let passenger of booking.passengers">
+                      {{passenger.name}} ({{passenger.passportNumber}})
+
+                      <!-- Luggage information -->
+                      <div class="luggage-info">
+            <span *ngIf="passenger.luggage && passenger.luggage.items && passenger.luggage.items.length > 0"
+                  class="luggage-badge"
+                  [title]="getLuggageSummary(passenger)">
+              <mat-icon>luggage</mat-icon> {{getTotalLuggageItems(passenger)}}
+            </span>
+                          <span *ngIf="!passenger.luggage || !passenger.luggage.items || passenger.luggage.items.length === 0"
+                                class="no-luggage-badge">
+              <mat-icon>luggage_off</mat-icon> No luggage
+            </span>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+
+          <!-- Add luggage summary section -->
+          <div class="luggage-summary" *ngIf="getTotalBookingLuggageItems(booking) > 0">
+              <h4>Luggage Summary:</h4>
+              <p>Total Items: {{getTotalBookingLuggageItems(booking)}}</p>
+              <p>Luggage Cost: {{getLuggageCost(booking) | currency:'ILS':'symbol':'1.0-0'}}</p>
+          </div>
+
+          <div class="booking-actions">
+              <a mat-button color="primary" [routerLink]="['/user/booking', booking.bookingId]">
+                  View Flight Details
+              </a>
+          </div>
+      </div>
+  </div>
+</div>
