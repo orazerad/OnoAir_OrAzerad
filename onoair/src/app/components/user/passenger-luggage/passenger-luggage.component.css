@@ -5,47 +5,47 @@
     max-width: 800px;
     margin: 0 auto;
     direction: rtl;
-  }
-  
-  .section-title {
+}
+
+.section-title {
     text-align: right;
     margin-bottom: 16px;
-  }
-  
-  .passenger-card {
+}
+
+.passenger-card {
     margin-bottom: 16px;
-  }
-  
-  .luggage-summary {
+}
+
+.luggage-summary {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     margin: 16px 0;
-  }
-  
-  .luggage-info, .luggage-count {
+}
+
+.luggage-info, .luggage-count {
     display: flex;
     gap: 8px;
     align-items: center;
-  }
-  
-  .label {
+}
+
+.label {
     font-weight: bold;
     margin: 0;
-  }
-  
-  .value {
+}
+
+.value {
     margin: 0;
-  }
-  
-  mat-card-actions {
+}
+
+mat-card-actions {
     padding: 8px 16px 16px;
-  }
-  
-  /* For small screens */
-  @media (max-width: 600px) {
+}
+
+/* For small screens */
+@media (max-width: 600px) {
     .luggage-summary {
-      flex-direction: column;
-      gap: 8px;
+        flex-direction: column;
+        gap: 8px;
     }
-  }
+}
